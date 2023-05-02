@@ -1,40 +1,33 @@
-from collections import deque
+import sys
+sys.setrecursionlimit(10**6)
 
-n = int(input())
+def dfs(x, y):
+  global cnt
+  if x < 0 or x >= n or y < 0 or y >= n:
+    return False
+
+  if graph[x][y] == 1:
+    graph[x][y] = 2
+    cnt += 1
+    dfs(x-1, y)
+    dfs(x+1, y)
+    dfs(x, y-1)
+    dfs(x, y+1)
+    return True
+  return False
+
 graph = []
+n = int(input())
 for i in range(n):
   graph.append(list(map(int, input())))
 
-dx = [-1, 1, 0, 0]
-dy = [0, 0, -1, 1]
 result = []
-
-def bfs(x, y):
-  queue = deque()
-  queue.append((x, y))
-  cnt = 1
-
-  while queue:
-    x, y = queue.popleft()
-    for i in range(4):
-      nx = x + dx[i]
-      ny = y + dy[i]
-      if nx < 0 or nx >= n or ny < 0 or ny >= n:
-        continue
-      if graph[nx][ny] == 0:
-        continue
-      if graph[nx][ny] == 1:
-        graph[nx][ny] = 0
-        cnt += 1
-        queue.append((nx, ny))
-
-  result.append(cnt)
-
+cnt = 0
 for i in range(n):
   for j in range(n):
-    if graph[i][j] == 1:
-      graph[i][j] = 0
-      bfs(i, j)
+    if dfs(i, j) == True:
+      result.append(cnt)
+      cnt = 0
 
 print(len(result))
 for i in sorted(result):

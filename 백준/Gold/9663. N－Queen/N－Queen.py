@@ -16,7 +16,6 @@ def nqueen(graph, row, num):
 
 n = int(input())
 graph = [0 for _ in range(n+1)]
-visited = [False] * (n+1)
 
 result = 0
 nqueen(graph, 1, n)

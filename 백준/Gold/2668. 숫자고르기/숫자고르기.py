@@ -1,27 +1,25 @@
-n = int(input())
-graph = [[] for _ in range(n+1)]
-for i in range(1, n+1):
-  num = int(input())
-  graph[num].append(i)
+import sys
+input = sys.stdin.readline
 
-visited = [False] * (n+1)
+def dfs(v, i):
+  visited[v] = True
+  val = arr[v]
+  if not visited[val]:
+    dfs(val, i)
+  elif visited[val] and val == i:
+    result.append(val)
+
+n = int(input())
+arr = [0]
+for _ in range(n):
+  arr.append(int(input()))
 
 result = []
-def dfs(v, route):
-  route.add(v)
-  visited[v] = True
-  for i in graph[v]:
-    if i not in route:
-      dfs(i, route.copy())
-    else:
-      result.extend(list(route))
-      return
-
+visited = [False] * (n+1)
 for i in range(1, n+1):
-  if not visited[i]:
-    dfs(i, set([]))
+  dfs(i, i)
+  visited = [False] * (n+1)
 
-result.sort()
 print(len(result))
-for num in result:
+for num in sorted(result):
   print(num)

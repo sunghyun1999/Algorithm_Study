@@ -1,10 +1,12 @@
 from itertools import combinations
+import sys
+input = sys.stdin.readline
 
 n = int(input())
 s = []
 for _ in range(n):
   s.append(list(map(int, input().split())))
-
+  
 player = [i for i in range(1, n+1)]
 team = list(combinations(player, n//2))
 

@@ -1,15 +1,14 @@
 from itertools import permutations
-import sys
-input = sys.stdin.readline
 
 n = int(input())
 data = list(map(int, input().split()))
+perm = permutations(data, n)
 
-result = 0
-for case in permutations(data, n):
-  tmp = 0
-  for i in range(n-1):
-    tmp += abs(case[i]-case[i+1])
-  result = max(result, tmp)
+answer = 0
+for p in perm:
+    tmp = 0
+    for i in range(n-1):
+        tmp += abs(p[i] - p[i+1])
+    answer = max(answer, tmp)
 
-print(result)
+print(answer)

@@ -1,14 +1,12 @@
 from itertools import combinations
-import sys 
-input = sys.stdin.readline
 
 n, m = map(int, input().split())
 data = list(map(int, input().split()))
 
-result = 0
-for case in combinations(data, 3):
-  sum_value = sum(case)
-  if sum_value <= m:
-    result = max(result, sum_value)
+answer = 0
+for combi in combinations(data, 3):
+    total = sum(combi)
+    if total <= m:
+        answer = max(answer, total)
 
-print(result)
+print(answer)

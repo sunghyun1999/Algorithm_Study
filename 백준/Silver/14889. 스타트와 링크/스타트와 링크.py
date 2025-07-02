@@ -1,24 +1,18 @@
 from itertools import combinations
-import sys
-input = sys.stdin.readline
 
 n = int(input())
-s = []
-for _ in range(n):
-  s.append(list(map(int, input().split())))
-  
-player = [i for i in range(1, n+1)]
-team = list(combinations(player, n//2))
+s = [list(map(int, input().split())) for _ in range(n)]
 
-answer = 1000
-for start in team:
-  tmp1 = 0
-  for i in combinations(start, 2):
-    tmp1 += s[i[0]-1][i[1]-1] + s[i[1]-1][i[0]-1]
-  tmp2 = 0
-  link = set(player) - set(start)
-  for i in combinations(link, 2):
-    tmp2 += s[i[0]-1][i[1]-1] + s[i[1]-1][i[0]-1]
-  answer = min(answer, abs(tmp1 - tmp2))
+min_diff = float('inf')
+people = [i for i in range(n)]
 
-print(answer)
+for team in combinations(people, n // 2):
+    start_team = list(team)
+    link_team = list(set(people) - set(start_team))
+
+    start_score = sum(s[i][j] + s[j][i] for i, j in combinations(start_team, 2))
+    link_score = sum(s[i][j] + s[j][i] for i, j in combinations(link_team, 2))
+
+    min_diff = min(min_diff, abs(start_score - link_score))
+
+print(min_diff)

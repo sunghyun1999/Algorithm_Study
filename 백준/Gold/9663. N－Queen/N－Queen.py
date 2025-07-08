@@ -1,22 +1,30 @@
-def promising(graph, row, col):
-  for i in range(1, row):
-    if graph[i] == col or abs(graph[i]-col) == row-i:
-      return False
-  return True
+def n_queen(n):
+    result = 0
+    cols = set()
+    diag1 = set()
+    diag2 = set()
 
-def nqueen(graph, row, num):
-  global result
-  if row == num + 1:
-    result += 1
-    return
-  for col in range(1, num+1):
-    if promising(graph, row, col):
-      graph[row] = col
-      nqueen(graph, row+1, num)
+    def backtrack(row):
+        nonlocal result
+        if row == n:
+            result += 1
+            return
+        for col in range(n):
+            if col in cols or (row + col) in diag1 or (row - col) in diag2:
+                continue
+
+            cols.add(col)
+            diag1.add(row + col)
+            diag2.add(row - col)
+
+            backtrack(row + 1)
+
+            cols.remove(col)
+            diag1.remove(row + col)
+            diag2.remove(row - col)
+
+    backtrack(0)
+    return result
 
 n = int(input())
-graph = [0 for _ in range(n+1)]
-
-result = 0
-nqueen(graph, 1, n)
-print(result)
+print(n_queen(n))

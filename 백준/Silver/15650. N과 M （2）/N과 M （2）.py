@@ -1,14 +1,7 @@
-def dfs(start):
-  if len(arr) == m:
-    print(' '.join(map(str, arr)))
-    return
-  for i in range(start, n+1):
-    if i not in arr:
-      arr.append(i)
-      dfs(i+1)
-      arr.pop()
+from itertools import combinations
 
 n, m = map(int, input().split())
-arr = []
 
-dfs(1)
+numbers = [str(i) for i in range(1, n + 1)]
+for combo in combinations(numbers, m):
+    print(' '.join(combo))

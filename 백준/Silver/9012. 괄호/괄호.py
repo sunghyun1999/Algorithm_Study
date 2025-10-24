@@ -1,17 +1,19 @@
 t = int(input())
 
-for i in range(t):
-  data = input()
-  balance = 0
-  for i in range(len(data)):
-    if balance < 0:
-      break
-    if data[i] == '(':
-      balance += 1
-    elif data[i] == ')':
-      balance -= 1
-  
-  if balance == 0:
-    print('YES')
-  else:
-    print('NO')
+for _ in range(t):
+    data = input()
+    stack = []
+    valid = True
+    for ch in data:
+        if ch == '(':
+            stack.append(ch)
+        elif ch == ')':
+            if stack:
+                stack.pop()
+            else:
+                valid = False
+                break
+    if valid and not stack:
+        print('YES')
+    else:
+        print('NO')

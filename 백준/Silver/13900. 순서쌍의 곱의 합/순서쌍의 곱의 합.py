@@ -1,15 +1,14 @@
-from itertools import combinations
 import sys
 input = sys.stdin.readline
 
-n = int(input())
-nums = list(map(int, input().split()))
+N = int(input())
+arr = list(map(int, input().split()))
 
-total_sum = sum(nums)
-res = 0
+prefix_sum = 0
+answer = 0
 
-for num in nums:
-    total_sum -= num
-    res += num * total_sum
+for x in arr:
+    answer += x * prefix_sum
+    prefix_sum += x
 
-print(res)
+print(answer)

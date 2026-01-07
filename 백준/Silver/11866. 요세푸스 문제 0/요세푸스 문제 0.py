@@ -1,11 +1,13 @@
-from collections import deque
-
 n, k = map(int, input().split())
-queue = deque(range(1, n + 1))
-result = []
+circle = [i + 1  for i in range(n)]
+pos = 0
+answer = []
 
-while queue:
-    queue.rotate(-(k - 1))
-    result.append(queue.popleft())
+while circle:
+    target = pos + k - 1
+    if target >= len(circle):
+        target = target % len(circle)
+    answer.append(circle.pop(target))
+    pos = target
 
-print("<" + ", ".join(map(str, result)) + ">")
+print('<' + ', '.join(map(str, answer)) + '>')
